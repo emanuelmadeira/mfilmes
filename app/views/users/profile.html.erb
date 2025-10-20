@@ -1,0 +1,26 @@
+<div class="row justify-content-center mt-4">
+  <div class="col-md-8">
+    <h2 class="text-success mb-4">👤 Minha Conta</h2>
+    
+    <div class="card bg-dark text-white border-success">
+      <div class="card-header bg-success text-dark">
+        <h5 class="mb-0">Informações do Perfil</h5>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <p><strong class="text-success">Nome:</strong> <%= current_user.name %></p>
+          </div>
+          <div class="col-md-6">
+            <p><strong class="text-success">Email:</strong> <%= current_user.email %></p>
+          </div>
+        </div>
+        
+        <div class="mt-4">
+          <%= link_to "✏️ Editar Perfil", edit_user_path(current_user), class: "btn btn-success me-2" %>
+          <%= link_to "📋 Voltar para Filmes", filmes_path, class: "btn btn-outline-secondary" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

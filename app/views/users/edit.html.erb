@@ -1,0 +1,32 @@
+<div class="row justify-content-center mt-4">
+  <div class="col-md-6">
+    <div class="card bg-dark text-white border-success">
+      <div class="card-header bg-success text-dark">
+        <h2 class="text-center mb-0">✏️ Editar Perfil</h2>
+      </div>
+      <div class="card-body">
+        <%= form_with model: @user, local: true do |form| %>
+          <div class="mb-3">
+            <%= form.label :name, "Nome", class: "form-label text-success fw-semibold" %>
+            <%= form.text_field :name, class: "form-control bg-black text-white border-success", required: true %>
+          </div>
+          
+          <div class="mb-3">
+            <%= form.label :email, "Email", class: "form-label text-success fw-semibold" %>
+            <%= form.email_field :email, class: "form-control bg-black text-white border-success", required: true %>
+          </div>
+          
+          <div class="mb-3">
+            <%= form.label :password, "Nova Senha", class: "form-label text-success fw-semibold" %>
+            <%= form.password_field :password, class: "form-control bg-black text-white border-success", placeholder: "Opcional por enquanto" %>
+          </div>
+          
+          <div class="d-grid gap-2">
+            <%= form.submit "💾 Atualizar Perfil", class: "btn btn-success" %>
+            <%= link_to "❌ Cancelar", profile_path, class: "btn btn-outline-secondary" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

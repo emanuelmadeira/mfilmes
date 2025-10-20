@@ -1,0 +1,32 @@
+<div class="row justify-content-center mt-5">
+  <div class="col-md-6">
+    <div class="card bg-dark text-white border-success">
+      <div class="card-header bg-success text-dark">
+        <h2 class="text-center mb-0">🎬 Cadastrar no MFilmes</h2>
+      </div>
+      <div class="card-body">
+        <%= form_with model: @user, local: true do |form| %>
+          <div class="mb-3">
+            <%= form.label :name, "Nome", class: "form-label text-success fw-semibold" %>
+            <%= form.text_field :name, class: "form-control bg-black text-white border-success", required: true, placeholder: "Seu nome completo" %>
+          </div>
+          
+          <div class="mb-3">
+            <%= form.label :email, "Email", class: "form-label text-success fw-semibold" %>
+            <%= form.email_field :email, class: "form-control bg-black text-white border-success", required: true, placeholder: "seu@email.com" %>
+          </div>
+          
+          <div class="d-grid">
+            <%= form.submit "Cadastrar", class: "btn btn-success btn-lg fw-bold" %>
+          </div>
+        <% end %>
+        
+        <div class="mt-3 text-center">
+          <p class="text-muted">Já tem conta? 
+            <%= link_to "Entre aqui", login_path, class: "text-success fw-semibold" %>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
