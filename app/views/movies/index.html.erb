@@ -1,6 +1,7 @@
+<!-- app/views/movies/index.html.erb (versão limpa) -->
 <div class="container mt-4">
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2 class="text-success">🎬  Filmes</h2>
+    <h2 class="text-success">🎬 Meus Filmes</h2>
     <% if logged_in? %>
       <%= link_to "➕ Adicionar Filme", new_movie_path, class: "btn btn-success" %>
     <% end %>
@@ -24,22 +25,29 @@
       <% @movies.each do |movie| %>
         <div class="col-md-6 col-lg-4 mb-4">
           <div class="card bg-dark text-white border-success h-100">
-            <div class="card-header bg-success text-dark d-flex justify-content-between align-items-center">
-              <h6 class="mb-0"><strong><%= movie.title %></strong></h6>
-              <span class="badge bg-dark"><%= movie.release_year %></span>
-            </div>
+            
+            <!-- Imagem apenas se existir -->
+            <% if movie.image.attached? %>
+              <%= image_tag movie.image, class: "card-img-top", style: "height: 200px; object-fit: cover;", alt: movie.title %>
+            <% end %>
+            
             <div class="card-body">
+              <div class="card-header bg-success text-dark d-flex justify-content-between align-items-center mb-3">
+                <h6 class="mb-0"><strong><%= movie.title %></strong></h6>
+                <span class="badge bg-dark"><%= movie.release_year %></span>
+              </div>
+              
               <p class="card-text">
-                <small class="text-muted">Gênero:</small><br>
-                <span class="text-success"><%= movie.genre || "Não especificado" %></span>
+                <small class="text-success">Gênero:</small><br>
+                <span class="text"><%= movie.genre || "Não especificado" %></span>
               </p>
               <p class="card-text">
-                <small class="text-muted">Descrição:</small><br>
+                <small class="text-success">Descrição:</small><br>
                 <%= movie.description.present? ? truncate(movie.description, length: 100) : "Sem descrição" %>
               </p>
               <p class="card-text">
-                <small class="text-muted">Adicionado por:</small><br>
-                <span class="text-warning"><%= movie.user.name %></span>
+                <small class="text-success">Adicionado por:</small><br>
+                <span class="text"><%= movie.user.name %></span>
               </p>
             </div>
             <div class="card-footer">

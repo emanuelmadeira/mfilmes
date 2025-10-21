@@ -89,3 +89,17 @@ body {
 .dropdown-item:hover {
   background-color: #f8f9fa;
 }
+/* Estilo para as imagens dos filmes */
+.card-img-top {
+  transition: transform 0.3s ease;
+}
+
+.card:hover .card-img-top {
+  transform: scale(1.05);
+}
+
+/* Limitar tamanho das imagens */
+.img-thumbnail {
+  max-width: 200px;
+  max-height: 200px;
+}

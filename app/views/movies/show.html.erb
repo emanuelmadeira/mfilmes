@@ -1,3 +1,4 @@
+<!-- app/views/movies/show.html.erb -->
 <div class="container mt-4">
   <div class="row justify-content-center">
     <div class="col-md-8">
@@ -6,6 +7,14 @@
           <h3 class="mb-0"><%= @movie.title %></h3>
           <span class="badge bg-dark fs-6"><%= @movie.release_year %></span>
         </div>
+        
+        <!-- Imagem do Filme (SÓ SE TIVER IMAGEM) -->
+        <% if @movie.image.attached? %>
+          <div class="text-center p-3">
+            <%= image_tag @movie.image, class: "img-fluid rounded", style: "max-height: 400px;", alt: @movie.title %>
+          </div>
+        <% end %>
+        
         <div class="card-body">
           <div class="row">
             <div class="col-md-6">
@@ -43,4 +52,4 @@
       </div>
     </div>
   </div>
-</div>  
+</div>

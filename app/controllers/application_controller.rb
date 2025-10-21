@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
     !!current_user
   end
   
-  # Adicione este método
+  
   def require_login
     unless logged_in?
       redirect_to login_path, alert: 'Por favor, faça login para acessar esta página.'

@@ -1,5 +1,7 @@
+
 class Movie < ApplicationRecord
-  belongs_to :user  # singular "user"
+  belongs_to :user
+  has_one_attached :image  
   
   validates :title, presence: true
   validates :release_year, numericality: { 
