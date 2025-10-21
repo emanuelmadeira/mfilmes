@@ -1,4 +1,4 @@
-<!-- app/views/movies/index.html.erb (versão limpa) -->
+<!-- app/views/movies/index.html.erb -->
 <div class="container mt-4">
   <div class="d-flex justify-content-between align-items-center mb-4">
     <h2 class="text-success">🎬 Meus Filmes</h2>
@@ -26,7 +26,7 @@
         <div class="col-md-6 col-lg-4 mb-4">
           <div class="card bg-dark text-white border-success h-100">
             
-            <!-- Imagem apenas se existir -->
+            <!-- Imagem do Filme -->
             <% if movie.image.attached? %>
               <%= image_tag movie.image, class: "card-img-top", style: "height: 200px; object-fit: cover;", alt: movie.title %>
             <% end %>
@@ -38,27 +38,32 @@
               </div>
               
               <p class="card-text">
-                <small class="text-success">Gênero:</small><br>
-                <span class="text"><%= movie.genre || "Não especificado" %></span>
+                <small class="text-muted">Gênero:</small><br>
+                <span class="text-success"><%= movie.genre || "Não especificado" %></span>
               </p>
               <p class="card-text">
-                <small class="text-success">Descrição:</small><br>
+                <small class="text-muted">Descrição:</small><br>
                 <%= movie.description.present? ? truncate(movie.description, length: 100) : "Sem descrição" %>
               </p>
               <p class="card-text">
-                <small class="text-success">Adicionado por:</small><br>
-                <span class="text"><%= movie.user.name %></span>
+                <small class="text-muted">Adicionado por:</small><br>
+                <span class="text-warning"><%= movie.user.name %></span>
               </p>
             </div>
             <div class="card-footer">
-              <div class="d-flex gap-2">
-                <%= link_to "👀 Ver", movie_path(movie), class: "btn btn-outline-info btn-sm" %>
-                <% if logged_in? && current_user == movie.user %>
-                  <%= link_to "✏️ Editar", edit_movie_path(movie), class: "btn btn-outline-warning btn-sm" %>
-                  <%= button_to "🗑️", movie_path(movie), method: :delete, 
-                      class: "btn btn-outline-danger btn-sm",
-                      data: { confirm: "Tem certeza que deseja excluir #{movie.title}?" } %>
-                <% end %>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex gap-2">
+                  <%= link_to "👀 Ver", movie_path(movie), class: "btn btn-outline-info btn-sm" %>
+                  <% if logged_in? && current_user == movie.user %>
+                    <%= link_to "✏️ Editar", edit_movie_path(movie), class: "btn btn-outline-warning btn-sm" %>
+                    <%= button_to "🗑️", movie_path(movie), method: :delete, 
+                        class: "btn btn-outline-danger btn-sm",
+                        data: { confirm: "Tem certeza que deseja excluir #{movie.title}?" } %>
+                  <% end %>
+                </div>
+                <small class="text-muted">
+                  💬 <%= movie.comentarios_count %>
+                </small>
               </div>
             </div>
           </div>

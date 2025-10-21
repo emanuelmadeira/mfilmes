@@ -28,7 +28,13 @@ class UsersController < ApplicationController
   def update
     @user = current_user
     
-    if @user.update(user_params)
+    
+    update_params = user_params
+    if update_params[:password].blank?
+      update_params.delete(:password)
+    end
+    
+    if @user.update(update_params)
       redirect_to profile_path, notice: 'Perfil atualizado com sucesso!'
     else
       render :edit
@@ -38,6 +44,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
+    
     params.require(:user).permit(:name, :email, :password)
   end
 

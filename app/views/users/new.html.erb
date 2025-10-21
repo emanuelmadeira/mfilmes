@@ -1,3 +1,4 @@
+<!-- app/views/users/new.html.erb -->
 <div class="row justify-content-center mt-5">
   <div class="col-md-6">
     <div class="card bg-dark text-white border-success">
@@ -8,6 +9,7 @@
         <%= form_with model: @user, local: true do |form| %>
           <% if @user.errors.any? %>
             <div class="alert alert-danger">
+              <h5>Corrija os seguintes erros:</h5>
               <ul class="mb-0">
                 <% @user.errors.full_messages.each do |message| %>
                   <li><%= message %></li>
@@ -29,7 +31,9 @@
           <div class="mb-3">
             <%= form.label :password, "Senha", class: "form-label text-success fw-semibold" %>
             <%= form.password_field :password, class: "form-control bg-black text-white border-success", required: true, placeholder: "Mínimo 6 caracteres" %>
-            <small class="form-text text-muted">A senha deve ter pelo menos 6 caracteres</small>
+            <div class="form-text text-muted">
+              <small>A senha deve ter pelo menos 6 caracteres</small>
+            </div>
           </div>
           
           <div class="d-grid">

@@ -1,14 +1,15 @@
 <!-- app/views/movies/show.html.erb -->
 <div class="container mt-4">
-  <div class="row justify-content-center">
+  <div class="row">
+    <!-- Detalhes do Filme -->
     <div class="col-md-8">
-      <div class="card bg-dark text-white border-success">
+      <div class="card bg-dark text-white border-success mb-4">
         <div class="card-header bg-success text-dark d-flex justify-content-between align-items-center">
           <h3 class="mb-0"><%= @movie.title %></h3>
           <span class="badge bg-dark fs-6"><%= @movie.release_year %></span>
         </div>
         
-        <!-- Imagem do Filme (SÓ SE TIVER IMAGEM) -->
+        <!-- Imagem do Filme -->
         <% if @movie.image.attached? %>
           <div class="text-center p-3">
             <%= image_tag @movie.image, class: "img-fluid rounded", style: "max-height: 400px;", alt: @movie.title %>
@@ -48,6 +49,67 @@
                   data: { confirm: "Tem certeza que deseja excluir #{@movie.title}?" } %>
             <% end %>
           </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Seção de Comentários -->
+    <div class="col-md-4">
+      <div class="card bg-dark text-white border-success">
+        <div class="card-header bg-success text-dark">
+          <h5 class="mb-0">💬 Comentários (<%= @movie.comentarios_count %>)</h5>
+        </div>
+        
+        <div class="card-body" style="max-height: 400px; overflow-y: auto;">
+          <!-- Formulário de Novo Comentário -->
+          <% if logged_in? %>
+            <div class="mb-4">
+              <%= form_with model: Comentario.new, url: movie_comentarios_path(@movie), local: true do |form| %>
+                <div class="mb-3">
+                  <%= form.label :conteudo, "Adicionar comentário", class: "form-label text-success fw-semibold" %>
+                  <%= form.text_area :conteudo, class: "form-control bg-black text-white border-success", rows: 3, placeholder: "Digite seu comentário...", required: true %>
+                </div>
+                <div class="d-grid">
+                  <%= form.submit "💬 Comentar", class: "btn btn-success btn-sm" %>
+                </div>
+              <% end %>
+            </div>
+          <% else %>
+            <div class="alert alert-info">
+              <small>
+                <%= link_to "Faça login", login_path %> para comentar neste filme.
+              </small>
+            </div>
+          <% end %>
+          
+          <!-- Lista de Comentários -->
+          <% if @movie.comentarios_count > 0 %>
+            <div class="comentarios-list">
+              <% @movie.comentarios.each do |comentario| %>
+                <div class="comentario-item border-bottom border-secondary pb-3 mb-3">
+                  <div class="d-flex justify-content-between align-items-start mb-2">
+                    <div>
+                      <strong class="text-warning"><%= comentario.user.name %></strong>
+                      <small class="text-muted ms-2"><%= time_ago_in_words(comentario.created_at) %> atrás</small>
+                    </div>
+                    <% if logged_in? && current_user.id == comentario.user_id %>
+                      <%= button_to "🗑️", movie_comentario_path(@movie, comentario), 
+                          method: :delete, 
+                          class: "btn btn-outline-danger btn-sm",
+                          data: { confirm: "Tem certeza que deseja excluir este comentário?" },
+                          form: { class: "d-inline" } %>
+                    <% end %>
+                  </div>
+                  <p class="mb-0 text-light"><%= comentario.conteudo %></p>
+                </div>
+              <% end %>
+            </div>
+          <% else %>
+            <div class="text-center text-muted py-4">
+              <p>Nenhum comentário ainda.</p>
+              <p class="small">Seja o primeiro a comentar!</p>
+            </div>
+          <% end %>
         </div>
       </div>
     </div>

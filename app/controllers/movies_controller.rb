@@ -1,4 +1,3 @@
-# app/controllers/movies_controller.rb
 class MoviesController < ApplicationController
   before_action :require_login, except: [:index, :show]
   

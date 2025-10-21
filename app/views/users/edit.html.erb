@@ -1,3 +1,4 @@
+<!-- app/views/users/edit.html.erb -->
 <div class="row justify-content-center mt-4">
   <div class="col-md-6">
     <div class="card bg-dark text-white border-success">
@@ -19,7 +20,9 @@
           <div class="mb-3">
             <%= form.label :password, "Nova Senha", class: "form-label text-success fw-semibold" %>
             <%= form.password_field :password, class: "form-control bg-black text-white border-success", placeholder: "Deixe em branco para manter a atual" %>
-            <small class="form-text text-muted">Deixe em branco se não quiser alterar a senha</small>
+            <div class="form-text text-muted">
+              <small>Deixe em branco se não quiser alterar a senha</small>
+            </div>
           </div>
           
           <div class="d-grid gap-2">
