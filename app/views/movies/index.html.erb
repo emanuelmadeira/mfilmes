@@ -1,0 +1,61 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-success">🎬  Filmes</h2>
+    <% if logged_in? %>
+      <%= link_to "➕ Adicionar Filme", new_movie_path, class: "btn btn-success" %>
+    <% end %>
+  </div>
+
+  <% if @movies.empty? %>
+    <div class="card bg-dark text-white border-success">
+      <div class="card-body text-center py-5">
+        <h4 class="text-muted">Nenhum filme cadastrado ainda</h4>
+        <% if logged_in? %>
+          <p class="text-muted">Seja o primeiro a adicionar um filme!</p>
+          <%= link_to "Adicionar Primeiro Filme", new_movie_path, class: "btn btn-success mt-3" %>
+        <% else %>
+          <p class="text-muted">Faça login para adicionar filmes</p>
+          <%= link_to "Fazer Login", login_path, class: "btn btn-success mt-3" %>
+        <% end %>
+      </div>
+    </div>
+  <% else %>
+    <div class="row">
+      <% @movies.each do |movie| %>
+        <div class="col-md-6 col-lg-4 mb-4">
+          <div class="card bg-dark text-white border-success h-100">
+            <div class="card-header bg-success text-dark d-flex justify-content-between align-items-center">
+              <h6 class="mb-0"><strong><%= movie.title %></strong></h6>
+              <span class="badge bg-dark"><%= movie.release_year %></span>
+            </div>
+            <div class="card-body">
+              <p class="card-text">
+                <small class="text-muted">Gênero:</small><br>
+                <span class="text-success"><%= movie.genre || "Não especificado" %></span>
+              </p>
+              <p class="card-text">
+                <small class="text-muted">Descrição:</small><br>
+                <%= movie.description.present? ? truncate(movie.description, length: 100) : "Sem descrição" %>
+              </p>
+              <p class="card-text">
+                <small class="text-muted">Adicionado por:</small><br>
+                <span class="text-warning"><%= movie.user.name %></span>
+              </p>
+            </div>
+            <div class="card-footer">
+              <div class="d-flex gap-2">
+                <%= link_to "👀 Ver", movie_path(movie), class: "btn btn-outline-info btn-sm" %>
+                <% if logged_in? && current_user == movie.user %>
+                  <%= link_to "✏️ Editar", edit_movie_path(movie), class: "btn btn-outline-warning btn-sm" %>
+                  <%= button_to "🗑️", movie_path(movie), method: :delete, 
+                      class: "btn btn-outline-danger btn-sm",
+                      data: { confirm: "Tem certeza que deseja excluir #{movie.title}?" } %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

@@ -6,6 +6,16 @@
       </div>
       <div class="card-body">
         <%= form_with model: @user, local: true do |form| %>
+          <% if @user.errors.any? %>
+            <div class="alert alert-danger">
+              <ul class="mb-0">
+                <% @user.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+          
           <div class="mb-3">
             <%= form.label :name, "Nome", class: "form-label text-success fw-semibold" %>
             <%= form.text_field :name, class: "form-control bg-black text-white border-success", required: true, placeholder: "Seu nome completo" %>
@@ -14,6 +24,12 @@
           <div class="mb-3">
             <%= form.label :email, "Email", class: "form-label text-success fw-semibold" %>
             <%= form.email_field :email, class: "form-control bg-black text-white border-success", required: true, placeholder: "seu@email.com" %>
+          </div>
+          
+          <div class="mb-3">
+            <%= form.label :password, "Senha", class: "form-label text-success fw-semibold" %>
+            <%= form.password_field :password, class: "form-control bg-black text-white border-success", required: true, placeholder: "Mínimo 6 caracteres" %>
+            <small class="form-text text-muted">A senha deve ter pelo menos 6 caracteres</small>
           </div>
           
           <div class="d-grid">

@@ -13,8 +13,7 @@
           
           <div class="mb-3">
             <%= form.label :password, "Senha", class: "form-label text-success fw-semibold" %>
-            <%= form.password_field :password, class: "form-control bg-black text-white border-success", placeholder: "Digite qualquer senha por enquanto" %>
-            <small class="form-text text-muted">Sistema de senha será implementado em breve</small>
+            <%= form.password_field :password, class: "form-control bg-black text-white border-success", required: true, placeholder: "Sua senha" %>
           </div>
           
           <div class="d-grid">
