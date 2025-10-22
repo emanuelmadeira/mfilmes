@@ -1,51 +1,64 @@
 <!-- app/views/movies/show.html.erb -->
 <div class="container mt-4">
   <div class="row">
-    <!-- Detalhes do Filme -->
-    <div class="col-md-8">
-      <div class="card bg-dark text-white border-success mb-4">
+    <!-- Detalhes do Filme - Lado Esquerdo no Desktop, Topo no Mobile -->
+    <div class="col-12 col-lg-8 mb-4">
+      <div class="card bg-dark text-white border-success">
         <div class="card-header bg-success text-dark d-flex justify-content-between align-items-center">
-          <h3 class="mb-0"><%= @movie.title %></h3>
+          <h3 class="mb-0 fs-4"><%= @movie.title %></h3>
           <span class="badge bg-dark fs-6"><%= @movie.release_year %></span>
         </div>
         
-        <!-- Imagem do Filme -->
         <% if @movie.image.attached? %>
-          <div class="text-center p-3">
-            <%= image_tag @movie.image, class: "img-fluid rounded", style: "max-height: 400px;", alt: @movie.title %>
+          <div class="text-center p-2 p-lg-3">
+            <%= image_tag @movie.image, class: "img-fluid rounded", style: "max-height: 300px;", alt: @movie.title %>
           </div>
         <% end %>
         
         <div class="card-body">
           <div class="row">
-            <div class="col-md-6">
-              <p><strong class="text-success">Gênero:</strong> <%= @movie.genre || "Não especificado" %></p>
+            <div class="col-12 col-sm-6 mb-2">
+              <p class="mb-2">
+                <strong class="text-success">Gênero:</strong><br>
+                <span class="text-light"><%= @movie.genre || "Não especificado" %></span>
+              </p>
+              <p class="mb-2">
+                <strong class="text-success">Diretor:</strong><br>
+                <span class="text-light"><%= @movie.diretor || "Não informado" %></span>
+              </p>
             </div>
-            <div class="col-md-6">
-              <p><strong class="text-success">Adicionado por:</strong> <span class="text-warning"><%= @movie.user.name %></span></p>
+            <div class="col-12 col-sm-6 mb-2">
+              <p class="mb-2">
+                <strong class="text-success">Duração:</strong><br>
+                <span class="text-light"><%= @movie.duracao || "Não informada" %></span>
+              </p>
+              <p class="mb-2">
+                <strong class="text-success">Adicionado por:</strong><br>
+                <span class="text-warning"><%= @movie.user.name %></span>
+              </p>
             </div>
           </div>
           
           <% if @movie.description.present? %>
             <div class="mt-3">
               <strong class="text-success">Descrição:</strong>
-              <p class="mt-2"><%= @movie.description %></p>
+              <p class="mt-2 text-light"><%= @movie.description %></p>
             </div>
           <% end %>
           
-          <div class="mt-4">
+          <div class="mt-3">
             <small class="text-muted">
               Adicionado em: <%= @movie.created_at.strftime("%d/%m/%Y às %H:%M") %>
             </small>
           </div>
         </div>
         <div class="card-footer">
-          <div class="d-flex gap-2">
-            <%= link_to "↩️ Voltar", movies_path, class: "btn btn-secondary" %>
+          <div class="d-flex flex-wrap gap-2">
+            <%= link_to "↩️ Voltar", movies_path, class: "btn btn-secondary btn-sm" %>
             <% if logged_in? && current_user == @movie.user %>
-              <%= link_to "✏️ Editar", edit_movie_path(@movie), class: "btn btn-warning" %>
+              <%= link_to "✏️ Editar", edit_movie_path(@movie), class: "btn btn-warning btn-sm" %>
               <%= button_to "🗑️ Excluir", movie_path(@movie), method: :delete, 
-                  class: "btn btn-danger",
+                  class: "btn btn-danger btn-sm",
                   data: { confirm: "Tem certeza que deseja excluir #{@movie.title}?" } %>
             <% end %>
           </div>
@@ -53,34 +66,51 @@
       </div>
     </div>
     
-    <!-- Seção de Comentários -->
-    <div class="col-md-4">
+    <!-- Seção de Comentários - Lado Direito no Desktop, Abaixo no Mobile -->
+    <div class="col-12 col-lg-4">
       <div class="card bg-dark text-white border-success">
         <div class="card-header bg-success text-dark">
-          <h5 class="mb-0">💬 Comentários (<%= @movie.comentarios_count %>)</h5>
+          <h5 class="mb-0 fs-5">💬 Comentários (<%= @movie.comentarios_count %>)</h5>
         </div>
         
-        <div class="card-body" style="max-height: 400px; overflow-y: auto;">
+        <div class="card-body" style="max-height: 500px; overflow-y: auto;">
           <!-- Formulário de Novo Comentário -->
-          <% if logged_in? %>
-            <div class="mb-4">
-              <%= form_with model: Comentario.new, url: movie_comentarios_path(@movie), local: true do |form| %>
-                <div class="mb-3">
-                  <%= form.label :conteudo, "Adicionar comentário", class: "form-label text-success fw-semibold" %>
-                  <%= form.text_area :conteudo, class: "form-control bg-black text-white border-success", rows: 3, placeholder: "Digite seu comentário...", required: true %>
+          <div class="mb-4">
+            <%= form_with model: Comentario.new, url: movie_comentarios_path(@movie), local: true do |form| %>
+              <% if logged_in? %>
+                <!-- Usuário logado - mostra nome automaticamente -->
+                <div class="alert alert-info mb-3 py-2">
+                  <small class="mb-0">Comentando como: <strong><%= current_user.name %></strong></small>
                 </div>
-                <div class="d-grid">
-                  <%= form.submit "💬 Comentar", class: "btn btn-success btn-sm" %>
+                <%= form.hidden_field :author_name, value: current_user.name %>
+              <% else %>
+                <!-- Usuário anônimo - campo para nome -->
+                <div class="mb-3">
+                  <%= form.label :author_name, "Seu nome", class: "form-label text-success fw-semibold" %>
+                  <%= form.text_field :author_name, 
+                      class: "form-control bg-black text-white border-success", 
+                      required: true, 
+                      placeholder: "Digite seu nome",
+                      maxlength: 50 %>
                 </div>
               <% end %>
-            </div>
-          <% else %>
-            <div class="alert alert-info">
-              <small>
-                <%= link_to "Faça login", login_path %> para comentar neste filme.
-              </small>
-            </div>
-          <% end %>
+              
+              <div class="mb-3">
+                <%= form.label :conteudo, "Seu comentário", class: "form-label text-success fw-semibold" %>
+                <%= form.text_area :conteudo, 
+                    class: "form-control bg-black text-white border-success", 
+                    rows: 3, 
+                    placeholder: "Digite seu comentário...", 
+                    required: true,
+                    maxlength: 1000 %>
+                <small class="form-text text-muted">Máximo: 1000 caracteres</small>
+              </div>
+              
+              <div class="d-grid">
+                <%= form.submit "💬 Comentar", class: "btn btn-success btn-sm" %>
+              </div>
+            <% end %>
+          </div>
           
           <!-- Lista de Comentários -->
           <% if @movie.comentarios_count > 0 %>
@@ -88,11 +118,18 @@
               <% @movie.comentarios.each do |comentario| %>
                 <div class="comentario-item border-bottom border-secondary pb-3 mb-3">
                   <div class="d-flex justify-content-between align-items-start mb-2">
-                    <div>
-                      <strong class="text-warning"><%= comentario.user.name %></strong>
-                      <small class="text-muted ms-2"><%= time_ago_in_words(comentario.created_at) %> atrás</small>
+                    <div class="me-2">
+                      <strong class="text-warning d-block">
+                        <%= comentario.author_display_name %>
+                        <% if comentario.anonymous? %>
+                          <small class="text-muted">(Visitante)</small>
+                        <% else %>
+                          <small class="text-muted">(Usuário)</small>
+                        <% end %>
+                      </strong>
+                      <small class="text-muted"><%= time_ago_in_words(comentario.created_at) %> atrás</small>
                     </div>
-                    <% if logged_in? && current_user.id == comentario.user_id %>
+                    <% if logged_in? && (current_user.id == comentario.user_id || current_user.id == @movie.user_id) %>
                       <%= button_to "🗑️", movie_comentario_path(@movie, comentario), 
                           method: :delete, 
                           class: "btn btn-outline-danger btn-sm",
@@ -106,8 +143,8 @@
             </div>
           <% else %>
             <div class="text-center text-muted py-4">
-              <p>Nenhum comentário ainda.</p>
-              <p class="small">Seja o primeiro a comentar!</p>
+              <p class="mb-1">Nenhum comentário ainda.</p>
+              <p class="small mb-0">Seja o primeiro a comentar!</p>
             </div>
           <% end %>
         </div>

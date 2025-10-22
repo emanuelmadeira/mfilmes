@@ -1,0 +1,14 @@
+            <div class="card-footer">
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex gap-2">
+                  <%= link_to "👀 Ver", movie_path(movie), class: "btn btn-outline-info btn-sm" %>
+                  <% if logged_in? && current_user == movie.user %>
+                    <%= link_to "✏️ Editar", edit_movie_path(movie), class: "btn btn-outline-warning btn-sm" %>
+                    <%= button_to "🗑️", movie_path(movie), method: :delete, 
+                        class: "btn btn-outline-danger btn-sm",
+                        data: { confirm: "Tem certeza que deseja excluir #{movie.title}?" } %>
+                  <% end %>
+                </div>
+                <%# Contagem de comentários temporariamente desativada %>
+              </div>
+            </div>

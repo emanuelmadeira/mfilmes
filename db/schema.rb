@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_21_175745) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_22_123804) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -48,6 +48,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_21_175745) do
     t.integer "movie_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "author_name"
   end
 
   create_table "movies", force: :cascade do |t|
@@ -58,6 +59,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_21_175745) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "diretor"
+    t.string "duracao"
     t.index ["user_id"], name: "index_movies_on_user_id"
   end
 

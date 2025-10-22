@@ -1,8 +1,10 @@
+# app/controllers/movies_controller.rb
 class MoviesController < ApplicationController
   before_action :require_login, except: [:index, :show]
   
   def index
-    @movies = Movie.all.order(created_at: :desc)
+    # Paginação - 6 filmes por página, ordenados por ano mais recente
+    @movies = Movie.all.order(release_year: :desc, created_at: :desc).page(params[:page]).per(6)
   end
   
   def new
@@ -46,6 +48,6 @@ class MoviesController < ApplicationController
   private
   
   def movie_params
-    params.require(:movie).permit(:title, :description, :genre, :release_year, :image)
+    params.require(:movie).permit(:title, :description, :genre, :release_year, :diretor, :duracao, :image)
   end
 end
