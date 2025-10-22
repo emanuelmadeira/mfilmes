@@ -45,28 +45,28 @@
                     <h5 class="card-title text-success mb-0"><%= movie.title %></h5>
                     <div class="d-flex align-items-center gap-2">
                       <span class="badge bg-success"><%= movie.release_year %></span>
-                      <small class="text-muted">💬 <%= movie.comentarios_count %></small>
+                      <small class="text-light">💬 <%= movie.comentarios_count %></small>
                     </div>
                   </div>
                   
                   <div class="row">
                     <div class="col-sm-6">
                       <p class="card-text mb-1">
-                        <small class="text-muted">Diretor:</small><br>
+                        <small class="text-success">Diretor:</small><br>
                         <span class="text-light"><%= movie.diretor || "Não informado" %></span>
                       </p>
                       <p class="card-text mb-1">
-                        <small class="text-muted">Gênero:</small><br>
+                        <small class="text-success">Gênero:</small><br>
                         <span class="text-light"><%= movie.genre || "Não especificado" %></span>
                       </p>
                     </div>
                     <div class="col-sm-6">
                       <p class="card-text mb-1">
-                        <small class="text-muted">Duração:</small><br>
+                        <small class="text-success">Duração:</small><br>
                         <span class="text-light"><%= movie.duracao || "Não informada" %></span>
                       </p>
                       <p class="card-text mb-1">
-                        <small class="text-muted">Adicionado por:</small><br>
+                        <small class="text-success">Adicionado por:</small><br>
                         <span class="text-warning"><%= movie.user.name %></span>
                       </p>
                     </div>
@@ -74,7 +74,7 @@
                   
                   <% if movie.description.present? %>
                     <p class="card-text mt-2">
-                      <small class="text-muted">Descrição:</small><br>
+                      <small class="text-success">Descrição:</small><br>
                       <span class="text-light"><%= truncate(movie.description, length: 150) %></span>
                     </p>
                   <% end %>
