@@ -24,19 +24,20 @@
     <!-- Lista Vertical - Um filme por linha em todos os dispositivos -->
     <div class="row">
       <% @movies.each do |movie| %>
-        <div class="col-12 mb-4">
-          <div class="card bg-dark text-white border-success">
+        <div class="col-12 col-md-6 col-lg-4 mb-4">
+          <div class="card bg-dark text-white border-success h-100 movie-card-mobile">
             <div class="row g-0">
               <!-- Imagem do Filme -->
-              <div class="col-md-3">
+              <div class="col-md-3 movie-image-container">
                 <% if movie.image.attached? %>
-                  <%= image_tag movie.image, class: "img-fluid h-100 w-100", style: "object-fit: cover; min-height: 200px;", alt: movie.title %>
+                  <%= image_tag movie.image, class: "img-fluid w-100 h-100 movie-image", alt: movie.title %>
                 <% else %>
-                  <div class="d-flex align-items-center justify-content-center bg-secondary h-100" style="min-height: 200px;">
-                    <span class="text-muted fs-1">🎬</span>
-                  </div>
+                 <div class="movie-placeholder d-flex align-items-center justify-content-center">
+                    <span class="fs-1 text-muted">🎬</span>
+                 </div>
                 <% end %>
               </div>
+
               
               <!-- Conteúdo do Filme -->
               <div class="col-md-9">

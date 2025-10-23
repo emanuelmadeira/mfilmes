@@ -178,143 +178,82 @@ body {
 /* Ajustes responsivos */
 /* ===== OTIMIZAÇÃO PARA MOBILE ===== */
 
-@media (max-width: 768px) {
-  /* Cards mais compactos */
-  .card {
-    margin-bottom: 1rem;
-  }
-  
+/* ======= AJUSTES GERAIS DE RESPONSIVIDADE ======= */
+@media (max-width: 992px) {
   .card-body {
     padding: 1rem;
   }
-  
-  .card-header {
-    padding: 0.75rem 1rem;
-  }
-  
-  .card-footer {
-    padding: 0.75rem 1rem;
-  }
-  
-  /* Títulos menores */
-  .card-header h3 {
-    font-size: 1.1rem !important;
-    line-height: 1.3;
-  }
-  
-  .card-header h5 {
-    font-size: 1rem !important;
-  }
-  
+
   .card-title {
-    font-size: 1.1rem !important;
-    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
   }
-  
-  /* Layout vertical compacto para filmes */
+
+  .card-text {
+    font-size: 0.9rem;
+  }
+
+  .btn-sm {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.6rem;
+  }
+}
+
+@media (max-width: 768px) {
   .movie-card-mobile .row.g-0 {
     flex-direction: column !important;
   }
-  
-  .movie-card-mobile .col-md-3 {
-    width: 100% !important;
-    max-height: 200px;
+
+  .movie-card-mobile img {
+    height: 200px !important;
   }
-  
-  .movie-card-mobile .col-md-9 {
-    width: 100% !important;
+
+  .card-body {
+    padding: 0.9rem;
   }
-  
-  /* Texto mais compacto */
-  .card-text {
-    font-size: 0.9rem;
-    margin-bottom: 0.5rem;
-  }
-  
-  .card-text small {
-    font-size: 0.8rem;
-  }
-  
-  /* Botões menores e empilhados */
+
   .btn-group-mobile {
     flex-direction: column;
-    gap: 0.5rem;
   }
-  
+
   .btn-group-mobile .btn {
     width: 100%;
-    font-size: 0.8rem;
-    padding: 0.4rem 0.6rem;
   }
-  
-  /* Badges menores */
-  .badge {
-    font-size: 0.7rem;
-    padding: 0.3rem 0.5rem;
+
+  h2.text-success {
+    font-size: 1.4rem !important;
+    text-align: center;
   }
-  
-  /* Imagens otimizadas */
-  .card img {
-    min-height: 150px !important;
-    max-height: 150px !important;
-  }
-  
-  /* Espaçamentos reduzidos */
-  .container {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-  }
-  
-  .mb-4 {
-    margin-bottom: 1rem !important;
-  }
-  
-  .mt-4 {
-    margin-top: 1rem !important;
-  }
-  
-  /* Paginação mobile */
-  .pagination {
-    font-size: 0.8rem;
-  }
-  
-  .pagination .page-link {
-    padding: 0.3rem 0.5rem;
-    margin: 0 0.1rem;
+
+  .pagination-custom {
+    flex-wrap: wrap;
+    justify-content: center;
   }
 }
 
 @media (max-width: 576px) {
-  /* Ainda mais compacto para telas muito pequenas */
   .card-body {
     padding: 0.75rem;
   }
-  
-  .card-header, .card-footer {
-    padding: 0.5rem 0.75rem;
-  }
-  
+
   .card-title {
-    font-size: 1rem !important;
+    font-size: 1rem;
   }
-  
-  .card-text {
-    font-size: 0.85rem;
-  }
-  
-  .btn {
+
+  .btn-sm {
     font-size: 0.75rem;
     padding: 0.3rem 0.5rem;
   }
-  
-  .container mt-4 {
-    margin-top: 0.5rem !important;
+
+  .container {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
   }
-  
-  h2 {
-    font-size: 1.3rem !important;
+
+  h2.text-success {
+    font-size: 1.2rem !important;
   }
 }
+
 
 /* ===== ESTILOS PARA PAGINAÇÃO ===== */
 
@@ -452,3 +391,78 @@ body {
 .pagination-custom .page-item.active .page-link {
   animation: paginationPulse 2s infinite;
 }
+/* ====== Ajuste para imagem ou ícone ocupar espaço igual ====== */
+.movie-image-container {
+  position: relative;
+  height: 100%;
+  min-height: 220px;
+  overflow: hidden;
+}
+
+.movie-image {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+  display: block;
+}
+
+/* Placeholder com mesmo tamanho da imagem */
+.movie-placeholder {
+  background-color: #2d2d2d;
+  color: #777;
+  width: 100%;
+  height: 100%;
+  min-height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.movie-placeholder span {
+  font-size: 3rem;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .movie-image-container,
+  .movie-placeholder {
+    min-height: 180px;
+  }
+}
+
+@media (max-width: 576px) {
+  .movie-image-container,
+  .movie-placeholder {
+    min-height: 150px;
+  }
+}
+/* ===== BOTÕES MAIORES EM TELAS PEQUENAS ===== */
+@media (max-width: 768px) {
+  .btn {
+    font-size: 1rem !important;
+    padding: 0.6rem 1rem !important;
+  }
+
+  .btn-sm {
+    font-size: 0.95rem !important;
+    padding: 0.5rem 0.9rem !important;
+  }
+
+  .btn-group-mobile {
+    flex-direction: column !important;
+    width: 100%;
+  }
+
+  .btn-group-mobile .btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 576px) {
+  .btn {
+    font-size: 1.05rem !important;
+    padding: 0.7rem 1rem !important;
+  }
+}
+

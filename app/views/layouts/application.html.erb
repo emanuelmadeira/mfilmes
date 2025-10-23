@@ -4,7 +4,10 @@
     <title>MFilmes</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <head>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Bootstrap CSS (via CDN) -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
@@ -23,43 +26,38 @@
   </head>
 
   <body class="bg-black text-white">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-     
+    <nav class="navbar navbar-expand-lg custom-navbar fixed-top navbar-dark">
+  <div class="container-fluid">
+    <%= link_to "🎬 M Filmes", root_path, class: "navbar-brand fw-bold text-success" %>
 
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav me-auto">
-            <li class="nav-item">
-              <%= link_to '🎬 MFilmes', movies_path, class: 'nav-link text-success fw-semibold' %>
-            </li>
-          </ul>
-          
-          <ul class="navbar-nav ms-auto">
-            <% if logged_in? %>
-              <!-- Usuário logado - Mostrar menu de perfil -->
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle text-success fw-semibold" href="#" role="button" data-bs-toggle="dropdown">
-                  👤 <%= current_user.name %>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-end">
-                  <li><%= link_to "Minha Conta", profile_path, class: "dropdown-item text-dark" %></li>
-                  <li><%= link_to "Editar Perfil", edit_user_path(current_user), class: "dropdown-item text-dark" %></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><%= link_to "Sair", logout_path, method: :delete, class: "dropdown-item text-dark" %>
-                </ul>
-              </li>
-            <% else %>
-              <!-- Usuário deslogado - Mostrar opções de login -->
-              <li class="nav-item">
-                <%= link_to 'Entrar', login_path, class: 'nav-link text-success fw-semibold' %>
-              </li>
-              <li class="nav-item">
-                <%= link_to 'Cadastrar', signup_path, class: 'nav-link text-success fw-semibold' %>
-              </li>
-            <% end %>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    <!-- Botão hambúrguer -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Itens da navbar -->
+    <div class="collapse navbar-collapse" id="navbarContent">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <% if logged_in? %>
+          <li class="nav-item">
+            <%= link_to "➕ Adicionar Filme", new_movie_path, class: "nav-link text-success" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "🚪 Sair", logout_path, method: :delete, class: "nav-link text-danger" %>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to "🔑 Login", login_path, class: "nav-link text-success" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "📝 Cadastrar", signup_path, class: "nav-link text-success" %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>
+
 
     <!-- Conteúdo com padding no topo -->
     <div class="container mt-5 pt-4">
