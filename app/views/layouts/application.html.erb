@@ -38,10 +38,12 @@
     <!-- Itens da navbar -->
     <div class="collapse navbar-collapse" id="navbarContent">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-        <% if logged_in? %>
+        <% if logged_in? %>    
+         
           <li class="nav-item">
             <%= link_to "➕ Adicionar Filme", new_movie_path, class: "nav-link text-success" %>
           </li>
+           <%= link_to "👤 Editar Conta", edit_user_path(current_user), class: "btn btn-black text-success bg-black" %>
           <li class="nav-item">
             <%= link_to "🚪 Sair", logout_path, method: :delete, class: "nav-link text-danger" %>
           </li>
